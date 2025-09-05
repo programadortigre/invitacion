@@ -324,6 +324,52 @@
             <audio id="music" src="musica.mp3"></audio>
 
             <img src="eu.png" alt="Euphoria Party XXIII" class="logo">
+            <!-- Botón flotante Play/Pause -->
+            <!-- Botón flotante Play/Pause -->
+            <button id="musicBtn" class="neon-music-btn">
+                <i class="fas fa-play"></i>
+            </button>
+
+            <style>
+                .neon-music-btn {
+                    bottom: 20px;
+                    right: 20px;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    border: 2px solid #00ffff;
+                    background: rgba(0, 0, 0, 0.6);
+                    color: #00ffff;
+                    font-size: 22px;
+                    cursor: pointer;
+                    z-index: 2000;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff inset;
+                    animation: pulseGlow 2s infinite;
+                    margin: auto;
+                }
+
+                .neon-music-btn:hover {
+                    transform: scale(1.1);
+                    box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff inset;
+                }
+
+                /* Efecto de pulso neón */
+                @keyframes pulseGlow {
+
+                    0%,
+                    100% {
+                        box-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff inset;
+                    }
+
+                    50% {
+                        box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff inset;
+                    }
+                }
+            </style>
             <div class="message">
                 <em>"¡El hígado es fuerte, pero la fiesta es más grande! Te espero para celebrar mis 23 años."</em>
             </div>
@@ -496,14 +542,80 @@
         function startMusic() {
             const audio = document.getElementById("music");
             if (audio.paused) {
-                audio.play().catch(err => console.log("Error al reproducir:", err));
+                audio.play().then(() => {
+                    console.log("🎵 Música iniciada");
+                    removeListeners(); // quito todos los eventos después de arrancar
+                }).catch(err => console.log("Error al reproducir:", err));
             }
         }
 
-        // Para PC y móviles
-        document.addEventListener("click", startMusic, { once: true });
-        document.addEventListener("touchstart", startMusic, { once: true });
+        function removeListeners() {
+            document.removeEventListener("click", startMusic);
+            document.removeEventListener("touchstart", startMusic);
+            document.removeEventListener("keydown", startMusic);
+            document.removeEventListener("scroll", startMusic);
+        }
+
+        // Escenarios posibles:
+        document.addEventListener("click", startMusic);
+        document.addEventListener("touchstart", startMusic);
+        document.addEventListener("keydown", startMusic);
+        document.addEventListener("scroll", startMusic, { passive: true });
+
+        // Truco extra: capturar el primer "wheel" (rueda del mouse en PC)
+        document.addEventListener("wheel", startMusic, { passive: true });
     </script>
+    <script>
+        const audio = document.getElementById("music");
+        const musicBtn = document.getElementById("musicBtn");
+
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.innerHTML = "▶️";
+                musicBtn.style.color = "#00ffcc";
+                musicBtn.style.textShadow = "0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc";
+                musicBtn.style.boxShadow = "0 0 10px #00ffcc, 0 0 20px #00ffcc inset";
+            } else {
+                audio.play().then(() => {
+                    musicBtn.innerHTML = "⏸️";
+                    musicBtn.style.color = "#ff00ff";
+                    musicBtn.style.textShadow = "0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff";
+                    musicBtn.style.boxShadow = "0 0 10px #ff00ff, 0 0 20px #ff00ff inset";
+                }).catch(err => console.log("Error al reproducir:", err));
+            }
+            isPlaying = !isPlaying;
+        }
+
+        musicBtn.addEventListener("click", toggleMusic);
+    </script>
+    <script>
+        const audio = document.getElementById("music");
+        const musicBtn = document.getElementById("musicBtn");
+        let isPlaying = false;
+
+        function toggleMusic() {
+            const icon = musicBtn.querySelector("i");
+            if (isPlaying) {
+                audio.pause();
+                icon.classList.replace("fa-pause", "fa-play");
+                musicBtn.style.color = "#00ffff";
+                musicBtn.style.borderColor = "#00ffff";
+            } else {
+                audio.play().then(() => {
+                    icon.classList.replace("fa-play", "fa-pause");
+                    musicBtn.style.color = "#ff00ff";
+                    musicBtn.style.borderColor = "#ff00ff";
+                }).catch(err => console.log("Error al reproducir:", err));
+            }
+            isPlaying = !isPlaying;
+        }
+
+        musicBtn.addEventListener("click", toggleMusic);
+    </script>
+
 </body>
 
 </html>
