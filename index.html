@@ -493,13 +493,16 @@
         });
     </script>
     <script>
-        // Detecta el primer clic en cualquier parte del documento
-        document.addEventListener("click", () => {
+        function startMusic() {
             const audio = document.getElementById("music");
             if (audio.paused) {
                 audio.play().catch(err => console.log("Error al reproducir:", err));
             }
-        }, { once: true }); // Solo se ejecuta una vez
+        }
+
+        // Para PC y móviles
+        document.addEventListener("click", startMusic, { once: true });
+        document.addEventListener("touchstart", startMusic, { once: true });
     </script>
 </body>
 
