@@ -498,11 +498,19 @@
             if (audio.paused) {
                 audio.play().catch(err => console.log("Error al reproducir:", err));
             }
+
+            // Elimina los listeners para que no siga intentando
+            document.removeEventListener("click", startMusic);
+            document.removeEventListener("touchstart", startMusic);
+            document.removeEventListener("scroll", startMusic);
+            document.removeEventListener("keydown", startMusic);
         }
 
-        // Para PC y móviles
-        document.addEventListener("click", startMusic, { once: true });
-        document.addEventListener("touchstart", startMusic, { once: true });
+        // Diferentes formas de interacción que "desbloquean" el audio en móviles/PC
+        document.addEventListener("click", startMusic);
+        document.addEventListener("touchstart", startMusic);
+        document.addEventListener("scroll", startMusic);
+        document.addEventListener("keydown", startMusic);
     </script>
 </body>
 
