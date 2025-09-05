@@ -321,6 +321,8 @@
 <body>
     <div class="container">
         <div class="contenido">
+            <audio id="music" src="musica.mp3"></audio>
+
             <img src="eu.png" alt="Euphoria Party XXIII" class="logo">
             <div class="message">
                 <em>"¡El hígado es fuerte, pero la fiesta es más grande! Te espero para celebrar mis 23 años."</em>
@@ -489,6 +491,15 @@
         window.addEventListener('load', () => {
             setInterval(createConfetti, 2000);
         });
+    </script>
+    <script>
+        // Detecta el primer clic en cualquier parte del documento
+        document.addEventListener("click", () => {
+            const audio = document.getElementById("music");
+            if (audio.paused) {
+                audio.play().catch(err => console.log("Error al reproducir:", err));
+            }
+        }, { once: true }); // Solo se ejecuta una vez
     </script>
 </body>
 
