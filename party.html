@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euphoria Party Neon</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Pacifico&family=Montserrat:wght@300;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translate(30px, -30px) scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.5),
+                0 0 100px rgba(0, 195, 255, 0.3);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .neon-text {
+            letter-spacing: 6px;
+            font-size: 5rem;
+            text-shadow:
+                0 0 5px currentColor,
+                0 0 10px currentColor,
+                0 0 20px currentColor,
+                0 0 40px currentColor,
+                0 0 80px currentColor;
+            transition: all 0.3s ease;
+            animation: glow 2s infinite alternate;
+            margin: 0.5rem 0;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow:
+                    0 0 5px currentColor,
+                    0 0 10px currentColor,
+                    0 0 20px currentColor,
+                    0 0 40px currentColor;
+            }
+
+            to {
+                text-shadow:
+                    0 0 10px currentColor,
+                    0 0 20px currentColor,
+                    0 0 40px currentColor,
+                    0 0 80px currentColor,
+                    0 0 120px currentColor;
+            }
+        }
+
+        #euphoria {
+            font-family: 'Orbitron', sans-serif;
+            color: #ff00ff;
+            animation: colorChangeEuphoria 8s infinite alternate;
+        }
+
+        #party {
+            font-family: 'Pacifico', cursive;
+            color: #00fffc;
+            animation: colorChangeParty 6s infinite alternate;
+        }
+
+        @keyframes colorChangeEuphoria {
+            0% {
+                color: #ff00ff;
+            }
+
+            25% {
+                color: #ff2a6d;
+            }
+
+            50% {
+                color: #05d9e8;
+            }
+
+            75% {
+                color: #d100ff;
+            }
+
+            100% {
+                color: #ff00a0;
+            }
+        }
+
+        @keyframes colorChangeParty {
+            0% {
+                color: #00fffc;
+            }
+
+            25% {
+                color: #fff200;
+            }
+
+            50% {
+                color: #00ff9d;
+            }
+
+            75% {
+                color: #ff0066;
+            }
+
+            100% {
+                color: #9d00ff;
+            }
+        }
+
+        .subtitle {
+            color: white;
+            margin-top: 2rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .lights {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .light-beam {
+            position: absolute;
+            width: 150%;
+            height: 20px;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.5), transparent);
+            transform-origin: center;
+            animation: rotateBeam 15s infinite linear;
+        }
+
+        .light-beam:nth-child(2) {
+            background: linear-gradient(90deg, transparent, rgba(0, 195, 255, 0.5), transparent);
+            animation-duration: 12s;
+            animation-delay: 1s;
+        }
+
+        .light-beam:nth-child(3) {
+            background: linear-gradient(90deg, transparent, rgba(255, 200, 0, 0.5), transparent);
+            animation-duration: 18s;
+            animation-delay: 2s;
+        }
+
+        @keyframes rotateBeam {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .neon-text {
+                font-size: 3rem;
+                letter-spacing: 4px;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .neon-text {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lights">
+        <div class="light-beam"></div>
+        <div class="light-beam"></div>
+        <div class="light-beam"></div>
+    </div>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="neon-text" id="euphoria">EUPHORIA</div>
+        <div class="neon-text" id="party">PARTY</div>
+        <div class="subtitle">Neon Experience • 24/7</div>
+    </div>
+
+    <script>
+        // Crear partículas flotantes
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            // Tamaño aleatorio
+            const size = Math.random() * 10 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            // Posición aleatoria
+            const xPos = Math.random() * 100;
+            const yPos = Math.random() * 100;
+            particle.style.left = `${xPos}%`;
+            particle.style.top = `${yPos}%`;
+
+            // Color aleatorio
+            const colors = ['#ff00ff', '#00fffc', '#fff200', '#ff0066', '#9d00ff'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.backgroundColor = color;
+            particle.style.color = color;
+
+            // Animación única
+            const duration = Math.random() * 20 + 10;
+            const delay = Math.random() * 5;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+
+            particlesContainer.appendChild(particle);
+        }
+
+        // Efecto de parpadeo mejorado
+        const euphoria = document.getElementById('euphoria');
+        const party = document.getElementById('party');
+
+        function neonFlicker() {
+            const flickerChance = Math.random();
+
+            if (flickerChance > 0.9) {
+                // Efecto de apagado fuerte
+                euphoria.style.opacity = '0.7';
+                party.style.opacity = '0.7';
+                setTimeout(() => {
+                    euphoria.style.opacity = '1';
+                    party.style.opacity = '1';
+                }, 100);
+            } else if (flickerChance > 0.7) {
+                // Efecto de parpadeo suave
+                const intensity = 0.8 + Math.random() * 0.2;
+                euphoria.style.opacity = intensity;
+                party.style.opacity = intensity;
+            } else {
+                // Estado normal
+                euphoria.style.opacity = '1';
+                party.style.opacity = '1';
+            }
+        }
+
+        setInterval(neonFlicker, 200);
+
+        // Efecto de movimiento sutil con el cursor
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+
+            const container = document.querySelector('.container');
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Cumpleaños de Álvaro!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Fuentes personalizadas */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+        /* Estilos generales del cuerpo */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('fondo.jpg') center/cover no-repeat;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            /* overflow: hidden; */
+        }
+
+        /* Overlay oscuro sobre el fondo */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+
+        /* Contenedor principal de la invitación */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            /* overflow: scroll; */
+            margin: 20px auto;
+
+            /* Fondo combinado: negro semitransparente + imagen */
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('fondo.jpg') center/cover no-repeat;
+        }
+
+
+        /* Título XXIII con efecto neón principal */
+        .neon-title-xxiii {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 80px;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1rem;
+            position: relative;
+            -webkit-text-stroke: 2px #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+        }
+
+        .neon-title-xxiii span {
+            display: inline-block;
+            opacity: 0;
+            -webkit-text-stroke: 2px currentColor;
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
+            transition: all 0.3s ease;
+        }
+
+        /* Título Álvaro con efecto de pulso */
+        .neon-title-alvaro {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: transparent;
+            text-transform: uppercase;
+            -webkit-text-stroke: 1px #0ff;
+            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+            margin-top: -30px;
+            /* Para acercarlo a XXIII */
+            animation: pulse-neon 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-neon {
+
+            0%,
+            100% {
+                text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+                transform: scale(1);
+            }
+
+            50% {
+                text-shadow: 0 0 15px #0ff, 0 0 30px #0ff, 0 0 60px #0ff;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Cuenta regresiva */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .countdown .number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 21px;
+            font-weight: bold;
+            color: #00ff99;
+            text-shadow: 0 0 5px #00ff99;
+        }
+
+        .countdown .label {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
+        /* Información y botones */
+        .info p {
+            font-size: 1rem;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        .info i {
+            margin-right: 10px;
+            color: #ff00ff;
+        }
+
+        /* Botón de WhatsApp */
+        .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Otros estilos */
+        .logo {
+            max-width: 100%;
+            /* margin-bottom: 100px; */
+            margin-top: 79px;
+        }
+
+        .message {
+            margin: 30px 0;
+            font-style: italic;
+            color: #ff9900;
+            color: wheat;
+            text-shadow: -4px -5px 6px #e21898, 10px 7px 6px #e21898, 2px -2px 6px #e21898, 2px -2px 6px #e21898;
+            font-size: 20px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        /* Animación de confeti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 0;
+            z-index: 1000;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Nuevos estilos para la sección de información */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            /* Una columna en pantallas pequeñas */
+            gap: 20px;
+            /* Espacio entre los items */
+            margin: 40px 0;
+        }
+
+        @media (min-width: 600px) {
+            .info-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                /* 2 columnas en pantallas más grandes */
+            }
+        }
+
+
+        .info-item {
+            background: linear-gradient(135deg, rgba(30, 0, 30, 0.6), rgba(0, 30, 30, 0.6));
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), 0 0 25px rgba(255, 0, 255, 0.3);
+            /* Sombra doble neón */
+            transition: all 0.4s ease;
+            border: 1px solid transparent;
+            /* Para el efecto de borde animado */
+            text-align: center;
+        }
+
+        .info-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            /* Grosor del borde */
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #00ff99);
+            /* Degradado del borde neón */
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            /* Borde oculto inicialmente */
+            transition: opacity 0.4s ease;
+            z-index: 0;
+            /* Asegura que esté detrás del contenido */
+        }
+
+        .info-item:hover::before {
+            opacity: 1;
+            /* Muestra el borde al pasar el ratón */
+        }
+
+        .info-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 35px rgba(255, 0, 255, 0.6);
+            /* Brillo más intenso al hover */
+        }
+
+        .icon-neon {
+            font-size: 2.5rem;
+            color: #00ffff;
+            /* Color cian para los iconos */
+            text-shadow: 0 0 8px #00ffff, 0 0 15px #00ffff;
+            margin-bottom: 10px;
+            display: block;
+            /* Para centrarlo mejor */
+        }
+
+        .info-text {
+            color: #e0e0e0;
+            /* Un blanco suave para el texto */
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin: 0;
+            position: relative;
+            /* Para asegurar que el texto esté sobre el borde animado */
+            z-index: 1;
+        }
+
+        .ref-text {
+            color: #00ff99;
+            /* Verde neón para la referencia */
+            font-size: 0.9rem;
+            display: block;
+            /* Para que ocupe su propia línea */
+            margin-top: 5px;
+            text-shadow: 0 0 5px #00ff99;
+        }
+
+        .additional-info {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #ff00ff;
+            box-shadow: 0 0 10px #ff00ff, inset 0 0 10px #ff00ff;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .additional-info p {
+            font-size: 1rem;
+            margin: 10px 0;
+            line-height: 1.4;
+            color: #e0e0e0;
+        }
+
+        .additional-info i {
+            margin-right: 10px;
+            color: #ff9900;
+            text-shadow: 0 0 5px #ff9900;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="contenido">
+            <img src="eu.png" alt="Euphoria Party XXIII" class="logo">
+            <div class="message">
+                <em>"¡El hígado es fuerte, pero la fiesta es más grande! Te espero para celebrar mis 23 años."</em>
+            </div>
+            <div class="neon-title-xxiii" id="xxiii-text">XXIII</div>
+            <div class="neon-title-alvaro" id="alvaro-text">ÁLVARO</div>
+
+
+
+
+            <img src="fecha.png" alt="" style="width: 100%;">
+            <div class="neon-title-alvaro">Cuanto falta?</div>
+
+            <div class="countdown">
+                <div class="info-item">
+                    <div class="number" id="days">00</div>
+                    <div class="label">DÍAS</div>
+                </div>
+                <div class="info-item">
+                    <div class="number" id="hours">00</div>
+                    <div class="label">HORAS</div>
+                </div>
+                <div class="info-item">
+                    <div class="number" id="minutes">00</div>
+                    <div class="label">MIN</div>
+                </div>
+                <div class="info-item">
+                    <div class="number" id="seconds">00</div>
+                    <div class="label">SEG</div>
+                </div>
+            </div>
+
+
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt icon-neon"></i>
+                    <p class="info-text">27 de Septiembre de 2025</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock icon-neon"></i>
+                    <p class="info-text">22:00 hrs - Hasta el amanecer</p>
+                </div>
+                <div class="info-item">
+                    <a style="text-decoration: none;"
+                        href="https://www.google.com/maps/place/R+%26+E+Jaico/@-11.9072752,-77.0352249,678m/data=!3m1!1e3!4m6!3m5!1s0x9105d05f8c29d625:0x8b424e8e48dd1033!8m2!3d-11.9073261!4d-77.0352912!16s%2Fg%2F11b6s19y8q?hl=es&entry=ttu&g_ep=EgoyMDI1MDkwMi4wIKXMDSoASAFQAw%3D%3D">
+                        <i class="fas fa-map-marker-alt icon-neon"></i>
+                        <p class="info-text">Av. San Felipe N°201 Urb. San Felipe - Comas <br>
+                            <span class="ref-text">Ref.: A 1 cuadra de la Av. Túpac Amarú</span>
+                        </p>
+                    </a>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-tshirt icon-neon"></i>
+                    <i class="fas fa-sunglasses icon-neon"></i>
+                    <p class="info-text">Venir con tus mejores lentes de fiesta</p>
+                </div>
+            </div>
+
+
+
+            <div class="additional-info">
+                <p>
+                    <i class="fas fa-glass-cheers"></i>
+                    ¡La diversión la ponemos nosotros! Te esperamos para celebrar sin preocupaciones.
+                </p>
+                <p>
+                    <i class="fas fa-gift"></i>
+                    Tu presencia es el mejor regalo, pero si deseas traer algo más, será bienvenido.
+                </p>
+            </div>
+
+            <div class="confirmation">
+                <p>Confirma tu asistencia enviando un mensaje:</p>
+                <a href="https://wa.me/51903018831?text=Hola%2C%20Alvaro!%20Confirmo%20mi%20asistencia%20a%20tu%20cumpleaños."
+                    class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> ¡Claro que voy!
+                </a>
+            </div>
+
+            <div class="footer">
+                #ALVAROXXIII • Evento exclusivo
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script para el efecto de texto neón para "XXIII"
+        const xxiiiText = document.getElementById('xxiii-text');
+        const xxiiiChars = xxiiiText.textContent;
+        xxiiiText.textContent = '';
+        const xxiiiColors = ['#ff00ff', '#00ffff', '#ffdd00', '#ff0080'];
+
+        xxiiiChars.split('').forEach((char, i) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.color = xxiiiColors[i % xxiiiColors.length];
+            xxiiiText.appendChild(span);
+            setTimeout(() => {
+                span.style.opacity = 1;
+            }, i * 100);
+        });
+
+        setInterval(() => {
+            xxiiiText.querySelectorAll('span').forEach(span => {
+                if (Math.random() < 0.3) {
+                    const randomGlow = Math.random() * 20;
+                    span.style.textShadow = `
+                        0 0 ${randomGlow + 5}px ${span.style.color},
+                        0 0 ${randomGlow + 10}px ${span.style.color},
+                        0 0 ${randomGlow + 20}px ${span.style.color}
+                    `;
+                } else {
+                    span.style.textShadow = 'none';
+                }
+            });
+        }, 300);
+
+        // Script para el contador de tiempo
+        function updateCountdown() {
+            const partyDate = new Date('September 27, 2025 22:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = partyDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Script para la animación de confeti
+        function createConfetti() {
+            const colors = ['#ff00cc', '#3333ff', '#00ccff', '#ff9900', '#00ff66'];
+            const container = document.body;
+
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.width = Math.random() * 8 + 4 + 'px';
+                confetti.style.height = Math.random() * 8 + 4 + 'px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                container.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setInterval(createConfetti, 2000);
+        });
+    </script>
+</body>
+
+</html>

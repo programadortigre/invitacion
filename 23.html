@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euphoria Neon XXIII</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(circle at center, #0a0a0a, #000);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+        }
+
+        .neon {
+            font-size: 8rem;
+            color: transparent;
+            text-transform: uppercase;
+            -webkit-text-stroke: 2px #ff00ff;
+            letter-spacing: 1rem;
+            position: relative;
+        }
+
+        .neon span {
+            display: inline-block;
+            opacity: 0;
+            -webkit-text-stroke: 2px currentColor;
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
+            transition: all 0.3s ease;
+        }
+
+        .subtitle {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            color: transparent;
+            -webkit-text-stroke: 1px #0ff;
+            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="neon" id="xxiii">XXIII</div>
+    <div class="subtitle" id="years">años de diversión</div>
+
+    <script>
+        const neonText = document.getElementById('xxiii');
+        const text = neonText.textContent;
+        neonText.textContent = '';
+
+        // Colores tipo Euphoria Party
+        const colors = ['#ff00ff', '#00ffff', '#ffdd00', '#ff0080'];
+
+        // Crear spans para animar letra por letra
+        text.split('').forEach((char, i) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.color = colors[i % colors.length];
+            neonText.appendChild(span);
+
+            // Animación de encendido progresivo
+            setTimeout(() => {
+                span.style.opacity = 1;
+            }, i * 300);
+        });
+
+        // Parpadeo aleatorio
+        setInterval(() => {
+            neonText.querySelectorAll('span').forEach(span => {
+                if (Math.random() < 0.3) {
+                    span.style.textShadow = `
+          0 0 ${Math.random() * 20 + 5}px ${span.style.color},
+          0 0 ${Math.random() * 40 + 10}px ${span.style.color},
+          0 0 ${Math.random() * 80 + 20}px ${span.style.color}
+        `;
+                }
+            });
+        }, 200);
+
+    </script>
+
+</body>
+
+</html>
